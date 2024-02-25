@@ -1,8 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Course } from '../Models/course';
 import { CourseService } from '../Services/course.service';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-courses',
@@ -11,7 +11,32 @@ import { RouterLink } from '@angular/router';
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.scss',
 })
-export class CoursesComponent {
+export class CoursesComponent implements OnInit {
   coursesService = inject(CourseService);
-  AllCourses: Course[] = this.coursesService.courses;
+  AllCourses: Course[];
+
+  activeRoute: ActivatedRoute = inject(ActivatedRoute);
+  searchString: string;
+
+  ngOnInit() {
+    // this.searchString = this.activeRoute.snapshot.queryParams['search'];
+    // console.log(this.searchString);
+    // this.searchString = this.activeRoute.snapshot.queryParamMap.get('search');
+    // console.log(this.searchString);
+
+    this.activeRoute.queryParamMap.subscribe((data) => {
+      this.searchString = data.get('search');
+      if (
+        this.searchString === undefined ||
+        this.searchString === '' ||
+        this.searchString === null
+      ) {
+        this.AllCourses = this.coursesService.courses;
+      } else {
+        this.AllCourses = this.coursesService.courses.filter((x) =>
+          x.title.toLowerCase().includes(this.searchString.toLowerCase())
+        );
+      }
+    });
+  }
 }
