@@ -8,7 +8,7 @@ import { CourseDetilComponent } from './courses/course-detil/course-detil.compon
 import { PopularComponent } from './home/popular/popular.component';
 import { LoginComponent } from './login/login.component';
 import { CheckoutComponent } from './checkout/checkout.component';
-import { CanActivate } from './auth.guard';
+import { CanActivate, CanActivateChild } from './auth.guard';
 import { AuthguardService } from './Services/authguard.service';
 
 export const routes: Routes = [
@@ -20,7 +20,7 @@ export const routes: Routes = [
   { path: 'Courses', component: CoursesComponent },
   {
     path: 'Courses',
-    canActivateChild: [AuthguardService],
+    canActivateChild: [CanActivateChild],
     children: [
       {
         path: 'Course/:id',
