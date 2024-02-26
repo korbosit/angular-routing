@@ -9,7 +9,7 @@ import { PopularComponent } from './home/popular/popular.component';
 import { LoginComponent } from './login/login.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { CanActivate } from './auth.guard';
-// import { AuthguardService } from './Services/authguard.service';
+import { AuthguardService } from './Services/authguard.service';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -18,23 +18,21 @@ export const routes: Routes = [
   { path: 'About', component: AboutComponent },
   { path: 'Contact', component: ContactComponent },
   { path: 'Courses', component: CoursesComponent },
-  // { path: 'Courses/Course/:id', component: CourseDetilComponent },
   {
     path: 'Courses',
+    canActivateChild: [AuthguardService],
     children: [
-      { path: 'Course/:id', component: CourseDetilComponent },
-      { path: 'Popular', component: PopularComponent },
-      // OLD METHOD CANACTIVATE ANGULAR14 AND LESS
-      // {
-      //   path: 'Checkout',
-      //   component: CheckoutComponent,
-      //   canActivate: [AuthguardService],
-      // },
-      // NEW METHOD CANACTIVATE ANGULAR16 AND MORE
+      {
+        path: 'Course/:id',
+        component: CourseDetilComponent,
+      },
+      {
+        path: 'Popular',
+        component: PopularComponent,
+      },
       {
         path: 'Checkout',
         component: CheckoutComponent,
-        canActivate: [CanActivate],
       },
     ],
   },
