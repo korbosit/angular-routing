@@ -6,6 +6,7 @@ import { CoursesComponent } from './courses/courses.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { CourseDetilComponent } from './courses/course-detil/course-detil.component';
 import { PopularComponent } from './home/popular/popular.component';
+import { LoginComponent } from './login/login.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -22,5 +23,6 @@ export const routes: Routes = [
       { path: 'Popular', component: PopularComponent },
     ],
   },
+  { path: 'Login', component: LoginComponent },
   { path: '**', component: NotFoundComponent },
 ];
