@@ -7,6 +7,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { CourseDetilComponent } from './courses/course-detil/course-detil.component';
 import { PopularComponent } from './home/popular/popular.component';
 import { LoginComponent } from './login/login.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { AuthguardService } from './Services/authguard.service';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -21,6 +23,11 @@ export const routes: Routes = [
     children: [
       { path: 'Course/:id', component: CourseDetilComponent },
       { path: 'Popular', component: PopularComponent },
+      {
+        path: 'Checkout',
+        component: CheckoutComponent,
+        canActivate: [AuthguardService],
+      },
     ],
   },
   { path: 'Login', component: LoginComponent },
