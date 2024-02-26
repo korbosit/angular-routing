@@ -8,7 +8,8 @@ import { CourseDetilComponent } from './courses/course-detil/course-detil.compon
 import { PopularComponent } from './home/popular/popular.component';
 import { LoginComponent } from './login/login.component';
 import { CheckoutComponent } from './checkout/checkout.component';
-import { AuthguardService } from './Services/authguard.service';
+import { CanActivate } from './auth.guard';
+// import { AuthguardService } from './Services/authguard.service';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -23,10 +24,17 @@ export const routes: Routes = [
     children: [
       { path: 'Course/:id', component: CourseDetilComponent },
       { path: 'Popular', component: PopularComponent },
+      // OLD METHOD CANACTIVATE ANGULAR14 AND LESS
+      // {
+      //   path: 'Checkout',
+      //   component: CheckoutComponent,
+      //   canActivate: [AuthguardService],
+      // },
+      // NEW METHOD CANACTIVATE ANGULAR16 AND MORE
       {
         path: 'Checkout',
         component: CheckoutComponent,
-        canActivate: [AuthguardService],
+        canActivate: [CanActivate],
       },
     ],
   },
