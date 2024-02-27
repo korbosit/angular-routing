@@ -45,6 +45,7 @@ export const routes: Routes = [
       {
         path: 'Checkout',
         component: CheckoutComponent,
+        data: { name: 'Test Course', price: 399 },
       },
     ],
   },
