@@ -25,7 +25,11 @@ export const routes: Routes = [
       },
     ],
   },
-  { path: 'Courses', component: CoursesComponent },
+  {
+    path: 'Courses',
+    component: CoursesComponent,
+    resolve: { courses: AuthguardService },
+  },
   {
     path: 'Courses',
     canActivateChild: [CanActivateChild],

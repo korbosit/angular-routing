@@ -5,6 +5,7 @@ import {
   CanActivate,
   CanActivateChild,
   CanDeactivate,
+  Resolve,
   Router,
   RouterStateSnapshot,
   UrlTree,
@@ -12,6 +13,8 @@ import {
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { ContactComponent } from '../contact/contact.component';
+import { Course } from '../Models/course';
+import { CourseService } from './course.service';
 
 export interface IDeactivateComponent {
   canExit: () => boolean | Observable<boolean> | Promise<boolean>;
@@ -21,10 +24,15 @@ export interface IDeactivateComponent {
   providedIn: 'root',
 })
 export class AuthguardService
-  implements CanActivate, CanActivateChild, CanDeactivate<IDeactivateComponent>
+  implements
+    CanActivate,
+    CanActivateChild,
+    CanDeactivate<IDeactivateComponent>,
+    Resolve<Course[]>
 {
   authService: AuthService = inject(AuthService);
   router: Router = inject(Router);
+  courseService: CourseService = inject(CourseService);
 
   constructor() {}
 
@@ -58,5 +66,17 @@ export class AuthguardService
     nextState: RouterStateSnapshot
   ) {
     return component.canExit();
+  }
+
+  resolve(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Course[] | Observable<Course[]> | Promise<Course[]> {
+    // let courseList: Course[] = [];
+    // this.courseService.getAllcourses().subscribe((courses: Course[]) => {
+    //   courseList = courses;
+    // });
+    // return courseList;
+    return this.courseService.getAllcourses();
   }
 }

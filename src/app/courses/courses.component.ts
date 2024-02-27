@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Course } from '../Models/course';
 import { CourseService } from '../Services/course.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { subscribe } from 'node:diagnostics_channel';
 
 @Component({
   selector: 'app-courses',
@@ -31,7 +32,10 @@ export class CoursesComponent implements OnInit {
         this.searchString === '' ||
         this.searchString === null
       ) {
-        this.AllCourses = this.coursesService.courses;
+        // this.coursesService.getAllcourses().subscribe((data: Course[]) => {
+        //   this.AllCourses = data;
+        // });
+        this.AllCourses = this.activeRoute.snapshot.data['courses'];
       } else {
         this.AllCourses = this.coursesService.courses.filter((x) =>
           x.title.toLowerCase().includes(this.searchString.toLowerCase())
