@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Course } from '../Models/course';
 
 @Component({
@@ -11,11 +11,16 @@ import { Course } from '../Models/course';
 })
 export class CheckoutComponent implements OnInit {
   activeRoute: ActivatedRoute = inject(ActivatedRoute);
+  router: Router = inject(Router);
   course;
 
   ngOnInit() {
-    this.activeRoute.data.subscribe((data) => {
-      this.course = data;
-    });
+    // PASS STATIC DATA
+    // this.activeRoute.data.subscribe((data) => {
+    //   this.course = data;
+    // });
+    // PASS DYNAMIC DATA
+    // this.course = this.router.getCurrentNavigation().extras.state;
+    this.course = history.state;
   }
 }
